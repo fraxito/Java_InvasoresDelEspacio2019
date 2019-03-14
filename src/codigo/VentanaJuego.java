@@ -23,6 +23,8 @@ public class VentanaJuego extends javax.swing.JFrame {
     
     BufferedImage buffer = null;
     
+    Nave miNave = new Nave();
+    
     Timer temporizador = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -39,8 +41,11 @@ public class VentanaJuego extends javax.swing.JFrame {
         buffer.createGraphics();
         
         temporizador.start();
+        
+        //inicializo la posición inicial de la nave
+        miNave.x = ANCHOPANTALLA /2 - miNave.imagen.getWidth(this) / 2;
+        miNave.y = ALTOPANTALLA - miNave.imagen.getHeight(this)  - 40; 
     }
-
     
     private void bucleDelJuego(){
         //se encarga del redibujado de los objetos en el jPanel1
@@ -52,7 +57,7 @@ public class VentanaJuego extends javax.swing.JFrame {
         
         ///////////////////////////////////////////////////////
         //redibujaremos aquí cada elemento
-        
+        g2.drawImage(miNave.imagen, miNave.x, miNave.y, null);
         
         
         /////////////////////////////////////////////////////////////
