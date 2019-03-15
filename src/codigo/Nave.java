@@ -19,6 +19,7 @@ public class Nave {
     public int y = 0;
     private boolean pulsadoIzquierda = false;
     private boolean pulsadoDerecha = false;
+
     
     public Nave(){
         try {
@@ -29,11 +30,11 @@ public class Nave {
     }
     
     public void mueve(){
-        if (pulsadoIzquierda){
-            x--;
+        if (pulsadoIzquierda && x > 0){
+            x -= 3;
         }
-        if (pulsadoDerecha){
-            x++;
+        if (pulsadoDerecha && x < VentanaJuego.ANCHOPANTALLA - imagen.getWidth(null)){
+            x += 3;
         }  
     }
 
