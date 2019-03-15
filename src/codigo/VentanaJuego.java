@@ -26,6 +26,7 @@ public class VentanaJuego extends javax.swing.JFrame {
     
     Nave miNave = new Nave();
     Disparo miDisparo = new Disparo();
+    Marciano miMarciano = new Marciano();
     
     Timer temporizador = new Timer(10, new ActionListener() {
         @Override
@@ -61,9 +62,10 @@ public class VentanaJuego extends javax.swing.JFrame {
         //redibujaremos aquí cada elemento
         g2.drawImage(miDisparo.imagen, miDisparo.x, miDisparo.y, null);
         g2.drawImage(miNave.imagen, miNave.x, miNave.y, null);
-        
+        g2.drawImage(miMarciano.imagen1, miMarciano.x, miMarciano.y, null);
         miNave.mueve();
         miDisparo.mueve();
+        miMarciano.mueve();
         /////////////////////////////////////////////////////////////
         //*****************   fase final, se dibuja ***************//
         //*****************   el buffer de golpe sobre el Jpanel***//
