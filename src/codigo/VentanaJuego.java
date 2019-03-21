@@ -138,7 +138,7 @@ public class VentanaJuego extends javax.swing.JFrame {
                 //chequeo si el marciano ha chocado contra la pared para cambiar la dirección 
                 //de todos los marcianos
                 if (listaMarcianos[i][j].x + anchoMarciano  == ANCHOPANTALLA || listaMarcianos[i][j].x == 0){
-                    cambiaDireccionMarcianos();
+                    direccionMarcianos = true;
                 }
                 
                 if (contador < 50) {
@@ -155,6 +155,10 @@ public class VentanaJuego extends javax.swing.JFrame {
                 }
                 else contador = 0;
             }
+        }
+        if (direccionMarcianos ){
+            cambiaDireccionMarcianos();
+            direccionMarcianos = false;
         }
     }
 
