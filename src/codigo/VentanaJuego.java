@@ -106,16 +106,18 @@ public class VentanaJuego extends javax.swing.JFrame {
         
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
-                rectanguloMarciano.setFrame(listaMarcianos[i][j].x,
-                                            listaMarcianos[i][j].y,
-                                            listaMarcianos[i][j].imagen1.getWidth(null),
-                                            listaMarcianos[i][j].imagen1.getHeight(null)
-                                            );
-                if (rectanguloDisparo.intersects(rectanguloMarciano)){
-                    listaMarcianos[i][j].y = 2000;
-                    miDisparo.posicionaDisparo(miNave);
-                    miDisparo.y = 1000;
-                    miDisparo.disparado = false;
+                if (listaMarcianos[i][j].vivo) {
+                    rectanguloMarciano.setFrame(listaMarcianos[i][j].x,
+                                                listaMarcianos[i][j].y,
+                                                listaMarcianos[i][j].imagen1.getWidth(null),
+                                                listaMarcianos[i][j].imagen1.getHeight(null)
+                                                );
+                    if (rectanguloDisparo.intersects(rectanguloMarciano)){
+                        listaMarcianos[i][j].vivo = false;
+                        miDisparo.posicionaDisparo(miNave);
+                        miDisparo.y = 1000;
+                        miDisparo.disparado = false;
+                    }
                 }
             }
         }
@@ -134,26 +136,27 @@ public class VentanaJuego extends javax.swing.JFrame {
         int anchoMarciano = listaMarcianos[0][0].imagen1.getWidth(null);
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
-                listaMarcianos[i][j].mueve();
-                //chequeo si el marciano ha chocado contra la pared para cambiar la dirección 
-                //de todos los marcianos
-                if (listaMarcianos[i][j].x + anchoMarciano  == ANCHOPANTALLA || listaMarcianos[i][j].x == 0){
-                    direccionMarcianos = true;
+                if (listaMarcianos[i][j].vivo) {
+                    listaMarcianos[i][j].mueve();
+                    //chequeo si el marciano ha chocado contra la pared para cambiar la dirección 
+                    //de todos los marcianos
+                    if (listaMarcianos[i][j].x + anchoMarciano == ANCHOPANTALLA || listaMarcianos[i][j].x == 0) {
+                        direccionMarcianos = true;
+                    }
+                    if (contador < 50) {
+                        _g2.drawImage(listaMarcianos[i][j].imagen1,
+                                listaMarcianos[i][j].x,
+                                listaMarcianos[i][j].y,
+                                null);
+                    } else if (contador < 100) {
+                        _g2.drawImage(listaMarcianos[i][j].imagen2,
+                                listaMarcianos[i][j].x,
+                                listaMarcianos[i][j].y,
+                                null);
+                    } else {
+                        contador = 0;
+                    }
                 }
-                
-                if (contador < 50) {
-                    _g2.drawImage(listaMarcianos[i][j].imagen1,
-                            listaMarcianos[i][j].x,
-                            listaMarcianos[i][j].y,
-                            null);
-                }
-                else if (contador < 100) {
-                    _g2.drawImage(listaMarcianos[i][j].imagen2,
-                            listaMarcianos[i][j].x,
-                            listaMarcianos[i][j].y,
-                            null);
-                }
-                else contador = 0;
             }
         }
         if (direccionMarcianos ){
