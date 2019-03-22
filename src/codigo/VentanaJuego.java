@@ -29,7 +29,7 @@ public class VentanaJuego extends javax.swing.JFrame {
     static int ALTOPANTALLA = 450;
 
     //numero de marcianos que van a aparecer
-    int filas = 5;
+    int filas = 8;
     int columnas = 10;
 
     BufferedImage buffer = null;
