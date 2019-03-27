@@ -66,7 +66,7 @@ public class VentanaJuego extends javax.swing.JFrame {
         // 6º para cambiar el tamaño de los sprites
         imagenes = cargaImagenes("/imagenes/invaders2.png", 5, 4, 64, 64, 2);
         
-        miDisparo.imagen = imagenes[3][2];
+        miDisparo.imagen = imagenes[2][4];
         setSize(ANCHOPANTALLA, ALTOPANTALLA);
         buffer = (BufferedImage) jPanel1.createImage(ANCHOPANTALLA, ALTOPANTALLA);
         buffer.createGraphics();
@@ -74,7 +74,7 @@ public class VentanaJuego extends javax.swing.JFrame {
         temporizador.start();
 
         //inicializo la posición inicial de la nave
-        miNave.imagen = imagenes[4][2];
+        miNave.imagen = imagenes[5][1];
         miNave.x = ANCHOPANTALLA / 2 - miNave.imagen.getWidth(this) / 2;
         miNave.y = ALTOPANTALLA - miNave.imagen.getHeight(this) - 40;
         
@@ -84,7 +84,7 @@ public class VentanaJuego extends javax.swing.JFrame {
         //1 parametro: numero de la fila de marcianos que estoy creando
         //2º parametro: fila dentro del spritesheet del marciano que quiero pintar
         //3º parametro: columna dentro del spritesheet del marciano que quiero pintar
-        creaFilaDeMarcianos(0, 0, 2);
+        creaFilaDeMarcianos(0, 0, 0);
         creaFilaDeMarcianos(1, 2, 2);
         creaFilaDeMarcianos(2, 4, 0);
         creaFilaDeMarcianos(3, 0, 2);
@@ -115,7 +115,7 @@ public class VentanaJuego extends javax.swing.JFrame {
         try {
             plantilla = ImageIO.read(getClass().getResource(nombreArchivoImagenes));
         } catch (IOException ex) { }
-        Image [][] arrayImagenes = new Image[numFilas][numColumnas];
+        Image [][] arrayImagenes = new Image[numFilas+1][numColumnas+1];
         
         //cargo las imagenes de forma individual en cada imagen del array de imagenes
         for (int i=0; i<numFilas; i++){
@@ -124,6 +124,17 @@ public class VentanaJuego extends javax.swing.JFrame {
                 arrayImagenes[i][j] = arrayImagenes[i][j].getScaledInstance(ancho/escala, ancho /escala, Image.SCALE_SMOOTH);
             }
         }
+        //cargo la última fila aparte porque mide la mitad
+            for (int j=0; j<numColumnas; j++){
+                arrayImagenes[numFilas][j] = plantilla.getSubimage(j*ancho, numFilas*alto, ancho, alto/2);
+                arrayImagenes[numFilas][j] = arrayImagenes[numFilas][j].getScaledInstance(2*ancho/escala, ancho /escala, Image.SCALE_SMOOTH);
+            }
+        //cargo la última columna aparte porque mide la mitad
+         for (int i=0; i<numFilas; i++){     
+            arrayImagenes[i][numColumnas] = plantilla.getSubimage(numColumnas*ancho, i*alto, ancho/2, alto);
+            arrayImagenes[i][numColumnas] = arrayImagenes[i][numColumnas].getScaledInstance(ancho/escala /2, ancho /escala , Image.SCALE_SMOOTH);
+        }       
+        
         
         return arrayImagenes;
         
